@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SmtpFlooder")]
+[assembly: AssemblyTitle("SmtpServerReceiver")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SmtpFlooder")]
+[assembly: AssemblyProduct("SmtpServerReceiver")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("288d2203-5cad-4d6a-86ba-dfd4657ad20e")]
+[assembly: Guid("34c67e96-5d1d-49d9-84c3-5cfb95073f9b")]
 
 // Version information for an assembly consists of the following four values:
 //
