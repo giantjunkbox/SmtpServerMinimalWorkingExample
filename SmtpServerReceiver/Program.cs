@@ -15,6 +15,10 @@ namespace SmtpServerReceiver
 
         static void Main(string[] args)
         {
+
+            ThreadPool.GetMinThreads(out var workerThreads, out var completionPortThreads);
+            ThreadPool.SetMinThreads(workerThreads * 3, completionPortThreads * 3);
+
             Console.CancelKeyPress += (sender, cancelEventArgs) =>
             {
                 cancelEventArgs.Cancel = true;
@@ -45,7 +49,17 @@ namespace SmtpServerReceiver
         private static void Monitor()
         {
             while (!_smtpServerCancellationToken.Token.WaitHandle.WaitOne(TimeSpan.FromMilliseconds(100)))
+            {
+                while (Console.KeyAvailable)
+                {
+                    if (Console.ReadKey(true).Key != ConsoleKey.Spacebar)
+                        continue;
+
+                    Interlocked.Exchange(ref MessageStore.ReceivedMessages, 0);
+                    _stopwatch.Restart();
+                }
                 PrintStatus();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

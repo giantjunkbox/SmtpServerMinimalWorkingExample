@@ -15,10 +15,11 @@ namespace SmtpServerHackJobReceiver
 
         static void Main(string[] args)
         {
+
             Console.CancelKeyPress += (sender, cancelEventArgs) =>
             {
                 cancelEventArgs.Cancel = true;
-                _smtpServerCancellationToken.Cancel();
+                _stopwatch.Restart();
             };
 
             var options = new SmtpServerOptionsBuilder()
@@ -45,7 +46,18 @@ namespace SmtpServerHackJobReceiver
         private static void Monitor()
         {
             while (!_smtpServerCancellationToken.Token.WaitHandle.WaitOne(TimeSpan.FromMilliseconds(100)))
+            {
+                while (Console.KeyAvailable)
+                {
+                    if (Console.ReadKey(true).Key != ConsoleKey.Spacebar)
+                        continue;
+
+                    Interlocked.Exchange(ref MessageStore.ReceivedMessages, 0);
+                    _stopwatch.Restart();
+                }
+
                 PrintStatus();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

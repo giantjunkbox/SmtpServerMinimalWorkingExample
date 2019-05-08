@@ -6,16 +6,12 @@ namespace SmtpServerHackJobReceiver
 {
     public class MessageStore : SmtpServer.Storage.MessageStore
     {
-        private static int _receivedMessages;
+        public static int ReceivedMessages;
 
-        public static int ReceivedMessages
-        {
-            get => _receivedMessages;
-        }
-
+ 
         public override SmtpResponse SaveAsync(ISessionContext context, IMessageTransaction transaction)
         {
-            Interlocked.Increment(ref _receivedMessages);
+            Interlocked.Increment(ref ReceivedMessages);
 
             return SmtpResponse.Ok;
         }
